@@ -1,0 +1,4 @@
+export const config = {
+  jwtSecret: process.env.JWT_SECRET || "dev-secret",
+  jwtExpiresIn: "1d",
+};

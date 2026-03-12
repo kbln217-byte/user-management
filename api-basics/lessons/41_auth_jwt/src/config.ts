@@ -10,7 +10,7 @@ function mustGet(name: string): string {
 }
 
 export const config = {
-  port: Number(process.env.PORT ?? 3004),
+    port: Number(process.env.PORT ?? 3004),
   jwtSecret: mustGet("JWT_SECRET") as Secret,
   jwtExpiresIn: (process.env.JWT_EXPIRES_IN ?? "1h") as SignOptions["expiresIn"],
 };
