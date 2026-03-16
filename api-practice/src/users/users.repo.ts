@@ -1,6 +1,6 @@
 //　DB操作
 
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../generated/prisma/client";
 import { prisma } from "../db";
 
 export async function findByEmail(email: string) {
@@ -19,7 +19,7 @@ export async function createUser(input: {
   });
 }
 
-export async function findById(id: number) {
+export async function findByIdUser(id: number) {
   return prisma.user.findUnique({
     where: { id },
   });
@@ -61,3 +61,14 @@ export async function deleteUser(id: number) {
     where: { id },
   });
 }
+
+export async function findAll(){
+    return prisma.user.findMany();
+}
+
+export async function putUser(id: number) {
+  return prisma.user.findUnique({
+    where: { id },
+  });
+}
+

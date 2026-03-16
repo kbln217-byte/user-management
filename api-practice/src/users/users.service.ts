@@ -3,8 +3,8 @@
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { config } from "../config";
-import { createUser, findByEmail } from "./users.repo";
-import { Prisma } from "@prisma/client";
+import { createUser, findByEmail, findAll, findByIdUser, deleteUser, putUser } from "./users.repo";
+import { Prisma } from "../generated/prisma/client";
 
 export type JwtPayload = {
   sub: number;
@@ -61,6 +61,14 @@ export async function register(input: {
   const password = await bcrypt.hash(input.password, 10);
 
   try {
+    const existingUser = await findByEmail(input.email);
+    if(existingUser) throw new HttpError(400,"REGISTER_FAILED","Email already existes")
+
+//     return res.status(400).json(error("email already exists", [{ field: "email", reason: "duplicate" }]));
+//   }
+
+//   users.push();
+//   res.status(201).json({ item: email });
 
     const user = await createUser({
       name: input.name,
@@ -87,3 +95,22 @@ export async function register(input: {
   }
 }
 
+
+
+export async function findAllUsers() {
+    return await findAll();
+}
+
+export async function findById(id: number) {
+    return await findByIdUser(id);
+}
+
+export async function deletedUser(id: number) {
+    return await deleteUser(id);
+    
+}
+
+export async function putUsers(id: number) {
+    return await putUser(id);
+    
+}

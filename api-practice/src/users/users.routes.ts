@@ -48,33 +48,92 @@ res.status(201).json(result);
 });
 
 
-usersRouter.get("/:id", Router, (req: Router, res: any) => {
-  res.status(200).json({ id: req.use });
+//一覧取得
+usersRouter.get("/", async(req, res ,next) => {
+  try{
+// users.serviceを呼び出し
+  const users = await service.findAllUsers
+  res.status(200).json({ users });
+
+  } catch(error) {
+    next(error)
+  }
+
+});
+
+//詳細取得
+usersRouter.get("/:id", async(req, res ,next) => {
+  try{
+// idを定義
+  const id = Number(req.params.id);
+  // users.serviceを呼び出し
+  const user = await service.findById(id);
+  res.status(200).json({ user });
+  
+  } catch(error) {
+    next(error)
+  }
+
 });
 
 
-usersRouter.get("/", Router, (req: Router, res: any) => {
-  res.status(200).json({ Task: req.use });
+//更新（PUT）
+usersRouter.put("/:id",async(req, res ,next) => {
+try{
+  const id = Number(req.params.id);
+
+
+  const user = await service.putUsers(id);
+
+  res.status(200).json({ user });
+  
+} catch(error) {
+ next(error)
+}
 });
 
 
-usersRouter.put("/:id", Router, (req: Router, res: any) => {
-  res.status(200).json({ id: req.use });
+// //   IDに一致するユーザー取得
+//   const user = users.find((u) => u.id === id);
+// //   ユーザーがいなかった場合は404
+//   if (!user) return res.status(404).json(notFoundError("user not found"));
+
+// //   リクエストＢＯＤＹからＮＡＭＥとＥＭＡＩＬを取得
+//   const { name, email } = req.body ?? {};
+// //   エラーディテールを初期化
+//   const details: { field: string; reason: string }[] = [];
+// // ＮＡＭＥが空の場合
+//   if (!isNonEmptyString(name)) details.push({ field: "name", reason: "required" });
+// //   ＥＭＡＩＬが空の場合
+//   if (!isNonEmptyString(email)) details.push({ field: "email", reason: "required" });
+// //   ＥＭＡＩＬの入力フォーマット
+//   if (isNonEmptyString(email) && !looksLikeEmail(email)) details.push({ field: "email", reason: "invalid_format" });
+
+//   if (details.length) return res.status(400).json(validationError("invalid request", details));
+//   if (users.some((u) => u.email === email && u.id !== id)) {
+//     return res.status(400).json(validationError("email already exists", [{ field: "email", reason: "duplicate" }]));
+//   }
+
+//     if (users.some((u) => u.email === email)) {
+//     return res.status(400).json(validationError("email already exists", [{ field: "email", reason: "duplicate" }]));
+//   }
+//   user.name = name.trim();
+//   user.email = email.trim();
+//   res.status(200).json({ item: user });
+
+
+usersRouter.delete("/:id",async(req, res ,next) => {
+try{
+  const id = Number(req.params.id);
+  const deletedUser = await service.deletedUser(id);
+
+  res.status(204).json({ deletedUser });
+  
+} catch(error) {
+ next(error)
+}
 });
 
-
-usersRouter.put("/", Router, (req: Router, res: any) => {
-  res.status(200).json({ Task: req.use });
-});
-
-usersRouter.delete("/:id", Router, (req: Router, res: any) => {
-  res.status(200).json({ id: req.use });
-});
-
-
-usersRouter.delete("/", Router, (req: Router, res: any) => {
-  res.status(200).json({ Task: req.use });
-});
 
 
 // import { Router } from "express";

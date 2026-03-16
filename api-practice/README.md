@@ -29,7 +29,7 @@
 目的	メソッド	パス
 一覧	GET	/tasks
 詳細	GET	/tasks/:id
-作成	POST	/tasks
+作成	POST	/regisuter
 更新	PUT	/tasks/:id
 削除	DELETE	/tasks/:id
 ```
@@ -38,7 +38,7 @@
 ``` txt
 一覧	GET	/users
 1件取得	GET	/users/:id
-作成	POST	/users
+作成	POST	/register
 更新	PUT	/users/:id
 削除	DELETE	/users/:id
 ```
@@ -55,7 +55,7 @@
     { 
         "id": 1,
         "title": "タスクタイトル",
-        "done": true, fauls,
+        "done": true, 
         "user_id": 2,
         "createdAt": "2026-02-19T12:00:00Z"
     }

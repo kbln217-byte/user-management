@@ -3,8 +3,9 @@ import * as jwt from "jsonwebtoken";
 import { config } from "../config";
 import { createUser, findByEmail } from "../users/users.repo";
 // import { Prisma } from "@prisma/client";
-import { Prisma } from "@prisma/client";
 import type { SignOptions } from "jsonwebtoken";
+import { Prisma } from "../generated/prisma/client";
+
 
 export type JwtPayload = {
   sub: number;

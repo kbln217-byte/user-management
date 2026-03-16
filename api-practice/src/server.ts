@@ -1,17 +1,29 @@
-import express, { Request, Response, NextFunction } from "express";
-// import { config } from "./config";
-// import { authRouter } from "./auth/auth.routes";
+// import express, { Request, Response, NextFunction } from "express";
+import { config } from "./config";
 // import { usersRouter } from "./users/users.routes";
-// import type { HttpError } from "./auth/auth.service";
+// import { tasksRouter } from "./tasks/tasks.routes";
+import { buildApp } from "./app";
 
-async function main() {
+const app = buildApp();
+app.listen(config.port, () => {
+  console.log(`listening on http://localhost:NULL`);
+});
 
-  const app = express();
-  app.use(express.json());
+// async function main() {
 
-    app.listen( () => {
-    console.log("サーバーが動きました。");
-  });
-}
+//   const app = express();
+//   const port = config.port;
 
-main();
+//   app.use(express.json());
+
+//   app.use("/users",usersRouter)
+//   app.use("/tasks",tasksRouter)
+
+//   app.listen(port, () => {
+//     console.log(`listening on http://localhost:${port}`);
+//   });
+// }
+
+// main();
+
+
